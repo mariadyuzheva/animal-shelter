@@ -1,9 +1,6 @@
 package ru.matmex.animalshelter.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Clinic {
@@ -11,13 +8,17 @@ public class Clinic {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
     private String name;
-    private String address;
+
+    @OneToOne
+    private Address address;
+
     private String phone;
 
     protected Clinic() {}
 
-    public Clinic(String name, String address, String phone) {
+    public Clinic(String name, Address address, String phone) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -26,8 +27,8 @@ public class Clinic {
     @Override
     public String toString() {
         return String.format(
-                "Clinic[id=%d, name='%s', address='%s', phone='%s']",
-                id, name, address, phone);
+                "Clinic[id=%d, name='%s', phone='%s', address='%s']",
+                id, name, phone, address.toString());
     }
 
     public Long getId() {
@@ -38,7 +39,7 @@ public class Clinic {
         return name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 

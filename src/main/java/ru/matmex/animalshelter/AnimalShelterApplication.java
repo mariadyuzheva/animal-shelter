@@ -6,8 +6,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import ru.matmex.animalshelter.model.Animal;
+import ru.matmex.animalshelter.model.*;
+import ru.matmex.animalshelter.repository.AddressRepository;
 import ru.matmex.animalshelter.repository.AnimalRepository;
+import ru.matmex.animalshelter.repository.ClinicRepository;
+import ru.matmex.animalshelter.repository.CuratorRepository;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 @SpringBootApplication
 public class AnimalShelterApplication {
@@ -19,39 +26,51 @@ public class AnimalShelterApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(AnimalRepository repository) {
+	public CommandLineRunner demo(AnimalRepository animalRepository,
+								  ClinicRepository clinicRepository,
+								  CuratorRepository curatorRepository,
+								  AddressRepository addressRepository) {
 		return (args) -> {
-			// save a few animals
-			repository.save(new Animal("Jack", "dog", 2));
-			repository.save(new Animal("Chloe", "cat", 5));
-			repository.save(new Animal("Kim", "dog", 3));
-			repository.save(new Animal("David", "dog", 1));
-			repository.save(new Animal("Michelle", "cat", 6));
+			addressRepository.save(new Address("Екатеринбург", "Белинского", "120"));
+			addressRepository.save(new Address("Екатеринбург", "Амундсена", "56"));
 
-			// fetch all animals
+			clinicRepository.save(new Clinic("Зоодоктор", addressRepository.getOne(1L), "83432143716"));
+			clinicRepository.save(new Clinic("Айболит", addressRepository.getOne(2L), "83433416529"));
+
+			curatorRepository.save(new Curator("Екатерина", "89122548132"));
+			curatorRepository.save(new Curator("Андрей", "89125932144"));
+
+			byte[] image1 = Files.readAllBytes(Paths.get("src/main/resources/static/dog.jpg"));
+
+			animalRepository.save(new Animal("Джек", AnimalType.DOG, "беспородный", 2,
+					clinicRepository.getOne(3L), curatorRepository.getOne(5L), image1));
+			animalRepository.save(new Animal("Хлоя", AnimalType.CAT, "сиамская", 5,
+					clinicRepository.getOne(3L), curatorRepository.getOne(6L), image1));
+			animalRepository.save(new Animal("Ким", AnimalType.DOG, "немецкая овчарка", 3,
+					clinicRepository.getOne(4L), curatorRepository.getOne(5L), image1));
+			animalRepository.save(new Animal("Джерри", AnimalType.DOG, "дог", 1,
+					clinicRepository.getOne(4L), curatorRepository.getOne(5L), image1));
+			animalRepository.save(new Animal("Мишель", AnimalType.CAT, "беспородная", 6,
+					clinicRepository.getOne(3L), curatorRepository.getOne(6L), image1));
+
 			log.info("Animals found with findAll():");
 			log.info("-------------------------------");
-			for (Animal animal : repository.findAll()) {
+			for (Animal animal : animalRepository.findAll()) {
 				log.info(animal.toString());
 			}
 			log.info("");
 
-			// fetch an individual animal by ID
-			Animal animal = repository.findById(1L);
-			log.info("Customer found with findById(1L):");
+			Animal animal = animalRepository.findById(7L);
+			log.info("Animal found with findById(7L):");
 			log.info("--------------------------------");
 			log.info(animal.toString());
 			log.info("");
 
-			// fetch animals by name
-			log.info("Animal found with findByName('Kim'):");
+			log.info("Animal found with findByName('Ким'):");
 			log.info("--------------------------------------------");
-			repository.findByName("Kim").forEach(bauer -> {
-				log.info(bauer.toString());
+			animalRepository.findByName("Ким").forEach(x -> {
+				log.info(x.toString());
 			});
-			// for (Animal bauer : repository.findByLastName("Bauer")) {
-			//  log.info(bauer.toString());
-			// }
 			log.info("");
 		};
 	}
