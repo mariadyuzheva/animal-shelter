@@ -1,6 +1,7 @@
 package ru.matmex.animalshelter.model;
 
 import javax.persistence.*;
+import java.util.Base64;
 
 @Entity
 public class Animal {
@@ -24,6 +25,7 @@ public class Animal {
     private Curator curator;
 
     @Lob
+    @Column(columnDefinition="BLOB")
     private byte[] image;
 
     protected Animal() {}
@@ -76,6 +78,10 @@ public class Animal {
 
     public byte[] getImage() {
         return image;
+    }
+
+    public String getImageBase64() {
+        return Base64.getEncoder().encodeToString(image);
     }
 
 }

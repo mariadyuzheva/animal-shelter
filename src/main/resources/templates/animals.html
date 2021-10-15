@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Питомцы</title>
+        <link rel="stylesheet" href="/animals.css">
+    </head>
+    <body>
+        <div th:each="animal: ${animals}">
+            <img class="pet-image" th:src="'data:image/jpeg;base64,' + ${animal.getImageBase64()}" alt="Фото питомца">
+            <p th:text="${animal.name}"></p>
+            <p th:text="${animal.breed}"></p>
+            <p th:text="'Куратор: ' + ${animal.curator.name}"></p>
+        </div>
+        <a href="/">Главная</a>
+    </body>
+</html>
