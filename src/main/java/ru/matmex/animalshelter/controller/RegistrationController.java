@@ -12,7 +12,6 @@ import ru.matmex.animalshelter.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class RegistrationController {
@@ -29,9 +28,17 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model,
-                          HttpServletRequest request, HttpServletResponse response) {
+                          HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+        if (userForm.getUsername().length() < 5){
+            model.addAttribute("usernameError", "Логин должен быть не менее 5 символов");
+            return "registration";
+        }
+        if (userForm.getPassword().length() < 5){
+            model.addAttribute("passwordError", "Пароль должен быть не менее 5 символов");
             return "registration";
         }
         if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){

@@ -41,43 +41,68 @@ public class Animal {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "Animal[id=%d, name='%s', type='%s', breed='%s', age=%d, curator='%s', clinic='%s']",
-                id, name, type, breed, age, curator.getName(), clinic.getName());
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public AnimalType getType() {
         return type;
+    }
+
+    public void setType(AnimalType type) {
+        this.type = type;
     }
 
     public String getBreed() {
         return breed;
     }
 
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
     public Integer getAge() {
         return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Clinic getClinic() {
         return clinic;
     }
 
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+
     public Curator getCurator() {
         return curator;
     }
 
+    public void setCurator(Curator curator) {
+        this.curator = curator;
+    }
+
     public byte[] getImage() {
         return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public String getImageBase64() {

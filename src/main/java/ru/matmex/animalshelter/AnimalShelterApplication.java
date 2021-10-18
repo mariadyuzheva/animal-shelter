@@ -52,26 +52,6 @@ public class AnimalShelterApplication {
 					clinicRepository.getOne(4L), curatorRepository.getOne(5L), image1));
 			animalRepository.save(new Animal("Мишель", AnimalType.CAT, "беспородная", 6,
 					clinicRepository.getOne(3L), curatorRepository.getOne(6L), image1));
-
-			log.info("Animals found with findAll():");
-			log.info("-------------------------------");
-			for (Animal animal : animalRepository.findAll()) {
-				log.info(animal.toString());
-			}
-			log.info("");
-
-			Animal animal = animalRepository.findById(7L);
-			log.info("Animal found with findById(7L):");
-			log.info("--------------------------------");
-			log.info(animal.toString());
-			log.info("");
-
-			log.info("Animal found with findByName('Ким'):");
-			log.info("--------------------------------------------");
-			animalRepository.findByName("Ким").forEach(x -> {
-				log.info(x.toString());
-			});
-			log.info("");
 		};
 	}
 

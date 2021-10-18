@@ -7,9 +7,5 @@ import ru.matmex.animalshelter.model.Curator;
 
 public interface CuratorRepository extends JpaRepository<Curator, Long> {
 
-    List<Curator> findByName(String name);
-
-    Curator findById(long id);
-
     Curator getOne(long id);
 }
