@@ -1,3 +1,13 @@
+.header {
+  margin: 10px;
+  text-align: center;
+}
 .pet-image {
   height: 200px;
+}
+.pet-card {
+  display: inline-block;
+  width: 400px;
+  margin: 5px;
+  text-align: center;
 }

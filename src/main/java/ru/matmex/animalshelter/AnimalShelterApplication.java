@@ -40,18 +40,22 @@ public class AnimalShelterApplication {
 			curatorRepository.save(new Curator("Екатерина", "89122548132"));
 			curatorRepository.save(new Curator("Андрей", "89125932144"));
 
-			byte[] image1 = Files.readAllBytes(Paths.get("src/main/resources/static/dog.jpg"));
+			byte[] image1 = Files.readAllBytes(Paths.get("src/main/resources/static/images/dog.jpg"));
+			byte[] image2 = Files.readAllBytes(Paths.get("src/main/resources/static/images/siam-cat.jpg"));
+			byte[] image3 = Files.readAllBytes(Paths.get("src/main/resources/static/images/german-shepherd.jpg"));
+			byte[] image4 = Files.readAllBytes(Paths.get("src/main/resources/static/images/german-dog.jpg"));
+			byte[] image5 = Files.readAllBytes(Paths.get("src/main/resources/static/images/cat.jpg"));
 
 			animalRepository.save(new Animal("Джек", AnimalType.DOG, "беспородный", 2,
 					clinicRepository.getOne(3L), curatorRepository.getOne(5L), image1));
 			animalRepository.save(new Animal("Хлоя", AnimalType.CAT, "сиамская", 5,
-					clinicRepository.getOne(3L), curatorRepository.getOne(6L), image1));
+					clinicRepository.getOne(3L), curatorRepository.getOne(6L), image2));
 			animalRepository.save(new Animal("Ким", AnimalType.DOG, "немецкая овчарка", 3,
-					clinicRepository.getOne(4L), curatorRepository.getOne(5L), image1));
+					clinicRepository.getOne(4L), curatorRepository.getOne(5L), image3));
 			animalRepository.save(new Animal("Джерри", AnimalType.DOG, "дог", 1,
-					clinicRepository.getOne(4L), curatorRepository.getOne(5L), image1));
+					clinicRepository.getOne(4L), curatorRepository.getOne(5L), image4));
 			animalRepository.save(new Animal("Мишель", AnimalType.CAT, "беспородная", 6,
-					clinicRepository.getOne(3L), curatorRepository.getOne(6L), image1));
+					clinicRepository.getOne(3L), curatorRepository.getOne(6L), image5));
 		};
 	}
 

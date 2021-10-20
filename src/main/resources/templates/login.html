@@ -15,7 +15,7 @@
             </div>
             <button type="submit">Войти</button>
         </form>
-        <p th:if="${loginError}">Wrong username or password</p>
+        <p th:if="${loginError}" th:text="${loginError}"></p>
         <a href="/">Главная</a>
     </body>
 </html>
