@@ -7,10 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import ru.matmex.animalshelter.model.*;
-import ru.matmex.animalshelter.repository.AddressRepository;
-import ru.matmex.animalshelter.repository.AnimalRepository;
-import ru.matmex.animalshelter.repository.ClinicRepository;
-import ru.matmex.animalshelter.repository.CuratorRepository;
+import ru.matmex.animalshelter.repository.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,7 +26,9 @@ public class AnimalShelterApplication {
 	public CommandLineRunner demo(AnimalRepository animalRepository,
 								  ClinicRepository clinicRepository,
 								  CuratorRepository curatorRepository,
-								  AddressRepository addressRepository) {
+								  AddressRepository addressRepository,
+								  RoleRepository roleRepository) {
+
 		return (args) -> {
 			addressRepository.save(new Address("Екатеринбург", "Белинского", "120"));
 			addressRepository.save(new Address("Екатеринбург", "Амундсена", "56"));
@@ -56,6 +55,9 @@ public class AnimalShelterApplication {
 					clinicRepository.getOne(4L), curatorRepository.getOne(5L), image4));
 			animalRepository.save(new Animal("Мишель", AnimalType.CAT, "беспородная", 6,
 					clinicRepository.getOne(3L), curatorRepository.getOne(6L), image5));
+
+			roleRepository.save(new Role("ROLE_ADMIN"));
+			roleRepository.save(new Role("ROLE_USER"));
 		};
 	}
 

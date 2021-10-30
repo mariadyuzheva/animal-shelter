@@ -11,15 +11,11 @@ import ru.matmex.animalshelter.model.User;
 import ru.matmex.animalshelter.repository.RoleRepository;
 import ru.matmex.animalshelter.repository.UserRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
-    @PersistenceContext
-    private EntityManager em;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -55,10 +51,6 @@ public class UserService implements UserDetailsService {
         }
 
         Role role = roleRepository.findByName("ROLE_USER");
-        if (role == null) {
-            role = new Role("ROLE_USER");
-            roleRepository.save(role);
-        }
         user.getRoles().add(role);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
