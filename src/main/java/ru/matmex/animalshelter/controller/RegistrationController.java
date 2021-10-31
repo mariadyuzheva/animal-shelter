@@ -1,5 +1,7 @@
 package ru.matmex.animalshelter.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RegistrationController {
+    private static final Logger log = LoggerFactory.getLogger(RegistrationController.class);
 
     @Autowired
     private UserService userService;
@@ -57,6 +60,7 @@ public class RegistrationController {
         try {
             request.login(username, password);
         } catch (ServletException e) {
+            log.error("Error login");
         }
     }
 }

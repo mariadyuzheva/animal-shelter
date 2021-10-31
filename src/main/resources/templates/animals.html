@@ -9,14 +9,14 @@
         <header class="header">
             <a href="/logout">Выйти</a>
             <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a href="/admin/add">Добавить животное</a>
+                <a href="/admin/save">Добавить животное</a>
             </div>
         </header>
         <div class="pet-card" th:each="animal: ${animals}">
-<!--            <img class="pet-image" th:src="'data:image/jpeg;base64,' + ${animal.getImageBase64()}" alt="Фото питомца">-->
+            <img class="pet-image" th:src="'data:image/jpeg;base64,' + ${animal.getImageBase64()}" alt="Фото питомца">
             <p th:text="${animal.name}"></p>
             <p th:text="'Порода: ' + ${animal.breed}"></p>
-<!--            <p th:text="'Куратор: ' + ${animal.curator.name}"></p>-->
+            <p th:text="'Куратор: ' + ${animal.curator.curatorName}"></p>
         </div>
     </body>
 </html>

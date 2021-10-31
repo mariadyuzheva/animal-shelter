@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Добавить животное</title>
+    </head>
+    <body>
+        <form method="post" enctype="multipart/form-data" th:action="@{/admin/save}">
+            <h2>Данные о животном</h2>
+            <div>
+                <input type="text" name="name" placeholder="Имя" autofocus="autofocus">
+            </div>
+            <div>
+                <select name="type">
+                    <option th:each="type : ${T(ru.matmex.animalshelter.model.AnimalType).values()}"
+                            th:value="${type}" th:text="${type.displayValue}"></option>
+                </select>
+            </div>
+            <div>
+                <input type="text" name="breed" placeholder="Порода">
+            </div>
+            <div>
+                <input type="number" name="age" placeholder="Возраст">
+            </div>
+            <div>
+                <input type="file" name="file" accept="image/*">
+            </div>
+            <h2>Данные о кураторе</h2>
+            <div>
+                <input type="text" name="curatorName" placeholder="Имя">
+            </div>
+            <div>
+                <input type="tel" name="curatorPhone" placeholder="Контактный номер">
+            </div>
+            <h2>Данные о клинике, где животное проходит лечение</h2>
+            <div>
+                <input type="text" name="clinicName" placeholder="Название">
+            </div>
+            <div>
+                <p>Адрес клиники</p>
+                <input type="text" name="city" placeholder="Город">
+                <input type="text" name="street" placeholder="Улица">
+                <input type="text" name="house" placeholder="Дом">
+            </div>
+            <div>
+                <input type="tel" name="clinicPhone" placeholder="Номер телефона">
+            </div>
+            <button type="submit">Сохранить</button>
+        </form>
+        <a href="/animals">Список животных</a>
+    </body>
+</html>

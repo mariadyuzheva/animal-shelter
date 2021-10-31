@@ -9,19 +9,19 @@ public class Clinic {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String clinicName;
 
     @OneToOne
-    private Address address;
+    private Address clinicAddress;
 
-    private String phone;
+    private String clinicPhone;
 
     protected Clinic() {}
 
-    public Clinic(String name, Address address, String phone) {
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
+    public Clinic(String clinicName, Address clinicAddress, String clinicPhone) {
+        this.clinicName = clinicName;
+        this.clinicAddress = clinicAddress;
+        this.clinicPhone = clinicPhone;
     }
 
     public Long getId() {
@@ -32,27 +32,27 @@ public class Clinic {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getClinicName() {
+        return clinicName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClinicName(String clinicName) {
+        this.clinicName = clinicName;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getClinicAddress() {
+        return clinicAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setClinicAddress(Address clinicAddress) {
+        this.clinicAddress = clinicAddress;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getClinicPhone() {
+        return clinicPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setClinicPhone(String clinicPhone) {
+        this.clinicPhone = clinicPhone;
     }
 }

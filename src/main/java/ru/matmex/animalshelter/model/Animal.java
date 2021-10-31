@@ -30,12 +30,6 @@ public class Animal {
 
     public Animal() {}
 
-    public Animal(String name, String breed, Integer age) {
-        this.name = name;
-        this.breed = breed;
-        this.age = age;
-    }
-
     public Animal(
             String name, AnimalType type, String breed, Integer age, Clinic clinic, Curator curator, byte[] image) {
         this.name = name;

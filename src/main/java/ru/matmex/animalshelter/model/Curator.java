@@ -9,14 +9,14 @@ public class Curator {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    private String name;
-    private String phone;
+    private String curatorName;
+    private String curatorPhone;
 
     protected Curator() {}
 
-    public Curator(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
+    public Curator(String curatorName, String curatorPhone) {
+        this.curatorName = curatorName;
+        this.curatorPhone = curatorPhone;
     }
 
     public Long getId() {
@@ -27,19 +27,19 @@ public class Curator {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCuratorName() {
+        return curatorName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCuratorName(String curatorName) {
+        this.curatorName = curatorName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCuratorPhone() {
+        return curatorPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCuratorPhone(String curatorPhone) {
+        this.curatorPhone = curatorPhone;
     }
 }
