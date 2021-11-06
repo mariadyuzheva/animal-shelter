@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Питомцы</title>
+        <link rel="stylesheet" href="/detailedInfo.css">
+    </head>
+    <body>
+        <header class="header">
+            <a href="/logout">Выйти</a>
+            <a href="/animals">Назад</a>
+            <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                <a href="/admin/save">Добавить животное</a>
+            </div>
+            <p>Подробная информация</p>
+        </header>
+        <div class="info">
+            <img width="700px" th:src="'data:image/jpeg;base64,' + ${animal.getImageBase64()}" alt="Фото питомца">
+            <div class="description">
+                <div>Основное</div>
+                <div class="block">
+                    <p th:text="'Имя: ' + ${animal.name}"></p>
+                    <p th:text="'Тип: ' + ${animal.type.displayValue}"></p>
+                    <p th:text="'Порода: ' + ${animal.breed}"></p>
+                    <p th:text="'Возраст: ' + ${animal.age}"></p>
+                </div>
+                <p>Клиника</p>
+                <div class="block">
+                    <p th:text="'Название: ' + ${animal.clinic.clinicName}"></p>
+                    <p th:text="'Адрес: г.' + ${animal.clinic.clinicAddress.city} + ', ул.' + ${animal.clinic.clinicAddress.street} + ', д.' + ${animal.clinic.clinicAddress.house}"></p>
+                    <p th:text="'Номер: ' + ${animal.clinic.clinicPhone}"></p>
+                </div>
+                <p>Куратор</p>
+                <div class="block">
+                    <p th:text="'Имя: ' + ${animal.curator.curatorName}"></p>
+                    <p th:text="'Номер: ' + ${animal.curator.curatorPhone}"></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
