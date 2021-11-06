@@ -23,12 +23,11 @@ public class AnimalService {
     @Autowired
     AddressRepository addressRepository;
 
-    public boolean saveAnimal(Animal animal, Curator curator, Clinic clinic, Address address) {
+    public void saveAnimal(Animal animal, Curator curator, Clinic clinic, Address address) {
         curatorRepository.save(curator);
         addressRepository.save(address);
         clinicRepository.save(clinic);
         animalRepository.save(animal);
-        return true;
     }
 
     public boolean deleteAnimal(Long animalId) {
