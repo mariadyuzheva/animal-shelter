@@ -3,15 +3,11 @@ package ru.matmex.animalshelter.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.matmex.animalshelter.model.*;
 import ru.matmex.animalshelter.repository.AnimalRepository;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -19,7 +15,7 @@ public class AnimalsController {
     @Autowired
     private AnimalRepository animalRepository;
 
-    @GetMapping("/animals")
+    @GetMapping("/")
     public String animals(Model model) {
         var animals = animalRepository.findAll();
         model.addAttribute("animals", animals);

@@ -13,7 +13,7 @@ public class DetailedAnimalInfoController {
     private AnimalRepository animalRepository;
 
     @GetMapping("/detailedAnimalInfo/{id}")
-    public String animals(Model model, @PathVariable Long id) {
+    public String animals(Model model, @PathVariable long id) {
         model.addAttribute("animal", animalRepository.getOne(id));
 
         return "detailedAnimalInfo";

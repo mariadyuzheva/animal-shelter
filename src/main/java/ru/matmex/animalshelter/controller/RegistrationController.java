@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.matmex.animalshelter.model.RoleName;
 import ru.matmex.animalshelter.model.User;
 import ru.matmex.animalshelter.service.UserService;
 
@@ -48,12 +49,12 @@ public class RegistrationController {
             model.addAttribute("passwordError", "Пароли не совпадают");
             return "registration";
         }
-        if (!userService.saveUser(userForm)){
+        if (!userService.saveUser(userForm, RoleName.ROLE_USER)){
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "registration";
         }
         authWithHttpServletRequest(request, userForm.getUsername(), userForm.getPasswordConfirm());
-        return "redirect:/animals";
+        return "redirect:/";
     }
 
     public void authWithHttpServletRequest(HttpServletRequest request, String username, String password) {

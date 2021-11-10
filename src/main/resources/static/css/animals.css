@@ -2,6 +2,9 @@
   margin: 10px;
   text-align: center;
 }
+.filter {
+  margin: 20px;
+}
 .pet-image {
   height: 200px;
 }

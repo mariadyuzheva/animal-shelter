@@ -1,4 +1,4 @@
-package ru.matmex.animalshelter.service.CSV;
+package ru.matmex.animalshelter.service.csv;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;

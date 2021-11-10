@@ -24,14 +24,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .authorizeRequests().antMatchers("/").permitAll()
-                .antMatchers("/h2-ui/**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/css/**", "/", "/filter**").permitAll()
                 .antMatchers("/registration").not().fullyAuthenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/animals").hasRole("USER")
+                .antMatchers("/admin/**", "/h2-ui/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/animals").failureUrl("/login-error").permitAll()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login-error").permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
         httpSecurity.csrf().disable();

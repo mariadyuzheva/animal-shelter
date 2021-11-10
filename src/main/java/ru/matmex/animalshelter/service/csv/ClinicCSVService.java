@@ -1,44 +1,39 @@
-package ru.matmex.animalshelter.service.CSV;
+package ru.matmex.animalshelter.service.csv;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.matmex.animalshelter.model.*;
-import ru.matmex.animalshelter.repository.AnimalRepository;
+import ru.matmex.animalshelter.model.Clinic;
+import ru.matmex.animalshelter.repository.AddressRepository;
 import ru.matmex.animalshelter.repository.ClinicRepository;
-import ru.matmex.animalshelter.repository.CuratorRepository;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AnimalCSVService {
+public class ClinicCSVService {
     @Autowired
-    AnimalRepository animalRepository;
+    AddressRepository addressRepository;
     @Autowired
     ClinicRepository clinicRepository;
-    @Autowired
-    CuratorRepository curatorRepository;
 
-    private static final String[] HEADERS = { "Name", "Type", "Breed", "Age", "Clinic", "Curator", "Image" };
+    private static final String[] HEADERS = { "ClinicName", "ClinicAddress", "ClinicPhone" };
 
     public void save(String path) {
         try {
             InputStream fileIS = new FileInputStream(path);
-            List<Animal> animals = csvToAnimals(fileIS);
-            animalRepository.saveAll(animals);
+            List<Clinic> clinics = csvToClinics(fileIS);
+            clinicRepository.saveAll(clinics);
         } catch (Exception e) {
             throw new RuntimeException("Fail to store csv data: " + e.getMessage());
         }
     }
 
-    public List<Animal> csvToAnimals(InputStream is) {
+    public List<Clinic> csvToClinics(InputStream is) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
              CSVParser csvParser = CSVFormat.DEFAULT
                      .withFirstRecordAsHeader()
@@ -48,27 +43,20 @@ public class AnimalCSVService {
                      .parse(fileReader)
         ) {
 
-            List<Animal> animals = new ArrayList<>();
+            List<Clinic> clinics = new ArrayList<>();
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
-                byte[] image = Files.readAllBytes(Paths.get(
-                        "src/main/resources/static/images/" + csvRecord.get(HEADERS[6])));
-
-                Animal animal = new Animal(
+                Clinic clinic = new Clinic(
                         csvRecord.get(HEADERS[0]),
-                        AnimalType.values()[Integer.parseInt(csvRecord.get(HEADERS[1]))],
-                        csvRecord.get(HEADERS[2]),
-                        Integer.parseInt(csvRecord.get(HEADERS[3])),
-                        clinicRepository.getOne(Long.parseLong(csvRecord.get(HEADERS[4]))),
-                        curatorRepository.getOne(Long.parseLong(csvRecord.get(HEADERS[5]))),
-                        image
+                        addressRepository.getOne(Long.parseLong(csvRecord.get(HEADERS[1]))),
+                        csvRecord.get(HEADERS[2])
                 );
 
-                animals.add(animal);
+                clinics.add(clinic);
             }
 
-            return animals;
+            return clinics;
         } catch (IOException e) {
             throw new RuntimeException("Fail to parse CSV file: " + e.getMessage());
         }

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
     <head>
         <meta charset="UTF-8">
         <title>Добавить животное</title>
+        <link rel="stylesheet" href="css/saveAnimal.css">
     </head>
     <body>
         <form method="post" enctype="multipart/form-data" th:action="@{/admin/save}">
@@ -48,6 +49,6 @@
             </div>
             <button type="submit">Сохранить</button>
         </form>
-        <a href="/animals">Список животных</a>
+        <a href="/">Список животных</a>
     </body>
 </html>

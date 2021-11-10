@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.matmex.animalshelter.model.Role;
+import ru.matmex.animalshelter.model.RoleName;
 import ru.matmex.animalshelter.model.User;
 import ru.matmex.animalshelter.repository.RoleRepository;
 import ru.matmex.animalshelter.repository.UserRepository;
@@ -43,14 +44,14 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public boolean saveUser(User user) {
+    public boolean saveUser(User user, RoleName roleName) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
 
         if (userFromDB != null) {
             return false;
         }
 
-        Role role = roleRepository.findByName("ROLE_ADMIN");
+        Role role = roleRepository.findByName(roleName.name());
         user.getRoles().add(role);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);

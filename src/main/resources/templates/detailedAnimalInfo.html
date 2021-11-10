@@ -3,15 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>Питомцы</title>
-        <link rel="stylesheet" href="/detailedInfo.css">
+        <link rel="stylesheet" href="/css/detailedInfo.css">
     </head>
     <body>
         <header class="header">
             <a href="/logout">Выйти</a>
-            <a href="/animals">Назад</a>
-            <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a href="/admin/save">Добавить животное</a>
-            </div>
+            <a href="/">Назад</a>
             <p>Подробная информация</p>
         </header>
         <div class="info">

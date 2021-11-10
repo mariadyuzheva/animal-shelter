@@ -19,7 +19,7 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
-            CascadeType.PERSIST
+            CascadeType.MERGE
     })
     private Set<Role> roles = new HashSet<>();
 

@@ -57,6 +57,6 @@ public class AdminController {
         clinic.setClinicAddress(address);
         animalForm.setClinic(clinic);
         animalService.saveAnimal(animalForm, curator, clinic, address);
-        return "redirect:/animals";
+        return "redirect:/";
     }
 }
