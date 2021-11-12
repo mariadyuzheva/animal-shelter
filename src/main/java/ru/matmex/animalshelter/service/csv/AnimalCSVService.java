@@ -26,7 +26,7 @@ public class AnimalCSVService {
     @Autowired
     CuratorRepository curatorRepository;
 
-    private static final String[] HEADERS = { "Name", "Type", "Breed", "Age", "Clinic", "Curator", "Image" };
+    private static final String[] HEADERS = { "Name", "Type", "Breed", "AgeYears", "AgeMonths", "Clinic", "Curator", "Image" };
 
     public void save(String path) {
         try {
@@ -53,15 +53,16 @@ public class AnimalCSVService {
 
             for (CSVRecord csvRecord : csvRecords) {
                 byte[] image = Files.readAllBytes(Paths.get(
-                        "src/main/resources/static/images/" + csvRecord.get(HEADERS[6])));
+                        "src/main/resources/static/images/" + csvRecord.get(HEADERS[7])));
 
                 Animal animal = new Animal(
                         csvRecord.get(HEADERS[0]),
                         AnimalType.values()[Integer.parseInt(csvRecord.get(HEADERS[1]))],
                         csvRecord.get(HEADERS[2]),
                         Integer.parseInt(csvRecord.get(HEADERS[3])),
-                        clinicRepository.getOne(Long.parseLong(csvRecord.get(HEADERS[4]))),
-                        curatorRepository.getOne(Long.parseLong(csvRecord.get(HEADERS[5]))),
+                        Integer.parseInt(csvRecord.get(HEADERS[4])),
+                        clinicRepository.getOne(Long.parseLong(csvRecord.get(HEADERS[5]))),
+                        curatorRepository.getOne(Long.parseLong(csvRecord.get(HEADERS[6]))),
                         image
                 );
 

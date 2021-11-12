@@ -24,12 +24,13 @@
             <h3>Фильтр</h3>
             <div>
                 <span>Возраст от</span>
-                <input type="number" name="ageFrom" min="1" th:max="${ageMax}" th:value="${ageFrom}">
+                <input type="number" name="ageFrom" min="0" th:max="${ageMax}" th:value="${ageFrom}">
                 <span>до</span>
                 <input type="number" name="ageTo" min="1" th:max="${ageMax}" th:value="${ageTo}">
+                <span>лет</span>
             </div>
             <div>
-                <select name="type" value="CAT" defaultValue="CAT">
+                <select name="type">
                     <option value="ALL">Все</option>
                     <option th:each="type : ${T(ru.matmex.animalshelter.model.AnimalType).values()}"
                             th:value="${type}" th:text="${type.displayValue}"></option>
@@ -43,12 +44,21 @@
                 <a th:text="${animal.name}" th:href="'/detailedAnimalInfo/' + ${animal.id}"></a>
             </p>
             <p sec:authorize="!isAuthenticated()" th:text="${animal.name}"></p>
-            <th:block th:switch="${animal.age % 10}">
-                <p th:case="'1'" th:text="'Возраст: ' + ${animal.age} + ' год'"></p>
-                <p th:case="'2'" th:text="'Возраст: ' + ${animal.age} + ' года'"></p>
-                <p th:case="'3'" th:text="'Возраст: ' + ${animal.age} + ' года'"></p>
-                <p th:case="'4'" th:text="'Возраст: ' + ${animal.age} + ' года'"></p>
-                <p th:case="*" th:text="'Возраст: ' + ${animal.age} + ' лет'"></p>
+            <th:block th:switch="${animal.ageYears % 10}">
+                <span th:case="'0'" th:text="'Возраст: '"></span>
+                <span th:case="'1'" th:text="'Возраст: ' + ${animal.ageYears} + ' год '"></span>
+                <span th:case="'2'" th:text="'Возраст: ' + ${animal.ageYears} + ' года '"></span>
+                <span th:case="'3'" th:text="'Возраст: ' + ${animal.ageYears} + ' года '"></span>
+                <span th:case="'4'" th:text="'Возраст: ' + ${animal.ageYears} + ' года '"></span>
+                <span th:case="*" th:text="'Возраст: ' + ${animal.ageYears} + ' лет '"></span>
+            </th:block>
+            <th:block th:switch="${animal.ageMonths % 10}">
+                <span th:case="'0'" th:text="''"></span>
+                <span th:case="'1'" th:text="${animal.ageMonths} + ' месяц'"></span>
+                <span th:case="'2'" th:text="${animal.ageMonths} + ' месяца'"></span>
+                <span th:case="'3'" th:text="${animal.ageMonths} + ' месяца'"></span>
+                <span th:case="'4'" th:text="${animal.ageMonths} + ' месяца'"></span>
+                <span th:case="*" th:text="${animal.ageMonths} + ' месяцев'"></span>
             </th:block>
         </div>
     </body>

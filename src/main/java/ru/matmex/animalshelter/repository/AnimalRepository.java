@@ -8,7 +8,7 @@ import ru.matmex.animalshelter.model.AnimalType;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
     Animal getOne(long id);
-    List<Animal> findByAgeGreaterThanEqualAndAgeLessThanEqual(Integer ageFrom, Integer ageTo);
+    List<Animal> findByAgeYearsGreaterThanEqualAndAgeYearsLessThanEqual(Integer ageFrom, Integer ageTo);
     List<Animal> findByType(AnimalType type);
-    Animal findFirstByOrderByAgeDesc();
+    Animal findFirstByOrderByAgeYearsDesc();
 }

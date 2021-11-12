@@ -19,9 +19,9 @@ public class AnimalsController {
     public String animals(Model model) {
         var animals = animalRepository.findAll();
         model.addAttribute("animals", animals);
-        model.addAttribute("ageFrom", 1);
-        model.addAttribute("ageTo", animalRepository.findFirstByOrderByAgeDesc().getAge());
-        model.addAttribute("ageMax", animalRepository.findFirstByOrderByAgeDesc().getAge());
+        model.addAttribute("ageFrom", 0);
+        model.addAttribute("ageTo", animalRepository.findFirstByOrderByAgeYearsDesc().getAgeYears());
+        model.addAttribute("ageMax", animalRepository.findFirstByOrderByAgeYearsDesc().getAgeYears());
 
         return "animals";
     }
@@ -29,7 +29,7 @@ public class AnimalsController {
 
     @GetMapping("/filter")
     public String animalsFilter(Model model, @ModelAttribute("ageFrom") Integer ageFrom, @ModelAttribute("ageTo") Integer ageTo, @ModelAttribute("type") String type) {
-        var animalsFilteredAge = animalRepository.findByAgeGreaterThanEqualAndAgeLessThanEqual(ageFrom, ageTo);
+        var animalsFilteredAge = animalRepository.findByAgeYearsGreaterThanEqualAndAgeYearsLessThanEqual(ageFrom, ageTo);
         List<Animal> animals = new ArrayList<Animal>();
 
         if (type.equals("ALL"))
@@ -45,7 +45,7 @@ public class AnimalsController {
         model.addAttribute("animals", animals);
         model.addAttribute("ageFrom", ageFrom);
         model.addAttribute("ageTo", ageTo);
-        model.addAttribute("ageMax", animalRepository.findFirstByOrderByAgeDesc().getAge());
+        model.addAttribute("ageMax", animalRepository.findFirstByOrderByAgeYearsDesc().getAgeYears());
 
         return "animals";
     }

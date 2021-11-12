@@ -16,7 +16,8 @@ public class Animal {
     private AnimalType type;
 
     private String breed;
-    private Integer age;
+    private Integer ageYears;
+    private Integer ageMonths;
 
     @ManyToOne
     private Clinic clinic;
@@ -31,11 +32,12 @@ public class Animal {
     public Animal() {}
 
     public Animal(
-            String name, AnimalType type, String breed, Integer age, Clinic clinic, Curator curator, byte[] image) {
+            String name, AnimalType type, String breed, Integer ageYears, Integer ageMonths, Clinic clinic, Curator curator, byte[] image) {
         this.name = name;
         this.type = type;
         this.breed = breed;
-        this.age = age;
+        this.ageYears = ageYears;
+        this.ageMonths = ageMonths;
         this.clinic = clinic;
         this.curator = curator;
         this.image = image;
@@ -73,12 +75,20 @@ public class Animal {
         this.breed = breed;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getAgeYears() {
+        return ageYears;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setAgeYears(Integer ageYears) {
+        this.ageYears = ageYears;
+    }
+
+    public Integer getAgeMonths() {
+        return ageMonths;
+    }
+
+    public void setAgeMonths(Integer ageMonths) {
+        this.ageMonths = ageMonths;
     }
 
     public Clinic getClinic() {

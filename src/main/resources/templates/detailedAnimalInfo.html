@@ -8,18 +8,33 @@
     <body>
         <header class="header">
             <a href="/logout">Выйти</a>
-            <a href="/">Назад</a>
-            <p>Подробная информация</p>
+            <a href="/">Список животных</a>
         </header>
         <div class="info">
             <img width="700px" th:src="'data:image/jpeg;base64,' + ${animal.getImageBase64()}" alt="Фото питомца">
             <div class="description">
-                <div>Основное</div>
+                <div>Основная информация</div>
                 <div class="block">
                     <p th:text="'Имя: ' + ${animal.name}"></p>
                     <p th:text="'Тип: ' + ${animal.type.displayValue}"></p>
                     <p th:text="'Порода: ' + ${animal.breed}"></p>
-                    <p th:text="'Возраст: ' + ${animal.age}"></p>
+                    <p><th:block th:switch="${animal.ageYears % 10}">
+                        <span th:case="'0'" th:text="'Возраст: '"></span>
+                        <span th:case="'1'" th:text="'Возраст: ' + ${animal.ageYears} + ' год '"></span>
+                        <span th:case="'2'" th:text="'Возраст: ' + ${animal.ageYears} + ' года '"></span>
+                        <span th:case="'3'" th:text="'Возраст: ' + ${animal.ageYears} + ' года '"></span>
+                        <span th:case="'4'" th:text="'Возраст: ' + ${animal.ageYears} + ' года '"></span>
+                        <span th:case="*" th:text="'Возраст: ' + ${animal.ageYears} + ' лет '"></span>
+                    </th:block>
+                    <th:block th:switch="${animal.ageMonths % 10}">
+                        <span th:case="'0'" th:text="''"></span>
+                        <span th:case="'1'" th:text="${animal.ageMonths} + ' месяц'"></span>
+                        <span th:case="'2'" th:text="${animal.ageMonths} + ' месяца'"></span>
+                        <span th:case="'3'" th:text="${animal.ageMonths} + ' месяца'"></span>
+                        <span th:case="'4'" th:text="${animal.ageMonths} + ' месяца'"></span>
+                        <span th:case="*" th:text="${animal.ageMonths} + ' месяцев'"></span>
+                    </th:block></p>
+<!--                    <p th:text="'Возраст: ' + ${animal.ageYears} + ' лет ' + ${animal.ageMonths} + ' месяцев'"></p>-->
                 </div>
                 <p>Клиника</p>
                 <div class="block">

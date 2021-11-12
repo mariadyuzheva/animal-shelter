@@ -24,17 +24,42 @@ public class AnimalService {
     AddressRepository addressRepository;
 
     public void saveAnimal(Animal animal, Curator curator, Clinic clinic, Address address) {
-        curatorRepository.save(curator);
-        addressRepository.save(address);
-        clinicRepository.save(clinic);
+        saveCurator(curator, animal);
+        saveAddress(address, clinic);
+        saveClinic(clinic, animal);
         animalRepository.save(animal);
     }
 
-    public boolean deleteAnimal(Long animalId) {
-        if (animalRepository.findById(animalId).isPresent()) {
-            animalRepository.deleteById(animalId);
-            return true;
+    private void saveCurator(Curator curator, Animal animal) {
+        Curator savedCurator = curatorRepository.getByCuratorNameAndCuratorPhone(
+                curator.getCuratorName(), curator.getCuratorPhone());
+        if (savedCurator == null) {
+            curatorRepository.save(curator);
         }
-        return false;
+        else {
+            animal.setCurator(savedCurator);
+        }
+    }
+
+    private void saveAddress(Address address, Clinic clinic) {
+        Address savedAddress = addressRepository.getByCityAndStreetAndHouse(
+                address.getCity(), address.getStreet(), address.getHouse());
+        if (savedAddress == null) {
+            addressRepository.save(address);
+        }
+        else {
+            clinic.setClinicAddress(savedAddress);
+        }
+    }
+
+    private void saveClinic(Clinic clinic, Animal animal) {
+        Clinic savedClinic = clinicRepository.getByClinicNameAndClinicAddressAndClinicPhone(
+                clinic.getClinicName(), clinic.getClinicAddress(), clinic.getClinicPhone());
+        if (savedClinic == null) {
+            clinicRepository.save(clinic);
+        }
+        else {
+            animal.setClinic(savedClinic);
+        }
     }
 }
