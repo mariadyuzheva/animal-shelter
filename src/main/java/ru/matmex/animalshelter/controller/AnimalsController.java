@@ -22,30 +22,44 @@ public class AnimalsController {
         model.addAttribute("ageFrom", 0);
         model.addAttribute("ageTo", animalRepository.findFirstByOrderByAgeYearsDesc().getAgeYears());
         model.addAttribute("ageMax", animalRepository.findFirstByOrderByAgeYearsDesc().getAgeYears());
+        model.addAttribute("isCheckedCat", true);
+        model.addAttribute("isCheckedDog", true);
+        model.addAttribute("isCheckedOther", true);
 
         return "animals";
     }
 
 
     @GetMapping("/filter")
-    public String animalsFilter(Model model, @ModelAttribute("ageFrom") Integer ageFrom, @ModelAttribute("ageTo") Integer ageTo, @ModelAttribute("type") String type) {
+    public String animalsFilter(Model model, @ModelAttribute("ageFrom") Integer ageFrom, @ModelAttribute("ageTo") Integer ageTo, @ModelAttribute("type") String type,
+                                @ModelAttribute("cat") String cat, @ModelAttribute("dog") String dog, @ModelAttribute("other") String other) {
         var animalsFilteredAge = animalRepository.findByAgeYearsGreaterThanEqualAndAgeYearsLessThanEqual(ageFrom, ageTo);
         List<Animal> animals = new ArrayList<Animal>();
 
-        if (type.equals("ALL"))
-            animals = animalsFilteredAge;
-        else {
-            var animalsFilteredType = animalRepository.findByType(AnimalType.valueOf(type));
-            for(Animal animal: animalsFilteredType){
-                if (animalsFilteredAge.contains(animal)){
-                    animals.add(animal);
-                }
+        var animalsFilteredType = new ArrayList<Animal>();
+        if (cat.equals("on")) {
+            animalsFilteredType.addAll( animalRepository.findByType(AnimalType.valueOf("CAT")));
+        }
+        if (dog.equals("on")) {
+            animalsFilteredType.addAll( animalRepository.findByType(AnimalType.valueOf("DOG")));
+        }
+        if (other.equals("on")) {
+            animalsFilteredType.addAll( animalRepository.findByType(AnimalType.valueOf("OTHER")));
+        }
+
+        for(Animal animal: animalsFilteredType){
+            if (animalsFilteredAge.contains(animal)){
+                animals.add(animal);
             }
         }
+
         model.addAttribute("animals", animals);
         model.addAttribute("ageFrom", ageFrom);
         model.addAttribute("ageTo", ageTo);
         model.addAttribute("ageMax", animalRepository.findFirstByOrderByAgeYearsDesc().getAgeYears());
+        model.addAttribute("isCheckedCat", cat.equals("on"));
+        model.addAttribute("isCheckedDog", dog.equals("on"));
+        model.addAttribute("isCheckedOther", other.equals("on"));
 
         return "animals";
     }

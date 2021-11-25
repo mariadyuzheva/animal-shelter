@@ -30,11 +30,13 @@
                 <span>лет</span>
             </div>
             <div>
-                <select name="type">
-                    <option value="ALL">Все</option>
-                    <option th:each="type : ${T(ru.matmex.animalshelter.model.AnimalType).values()}"
-                            th:value="${type}" th:text="${type.displayValue}"></option>
-                </select>
+                <span>Тип животного</span>
+                <input type="checkbox" id="cat" name="cat" th:checked="${isCheckedCat}">
+                <label for="cat">Кошка</label>
+                <input type="checkbox" id="dog" name="dog" th:checked="${isCheckedDog}">
+                <label for="dog">Собака</label>
+                <input type="checkbox" id="other" name="other" th:checked="${isCheckedOther}">
+                <label for="other">Другой</label>
             </div>
             <button type="submit">Поиск</button>
         </form>
